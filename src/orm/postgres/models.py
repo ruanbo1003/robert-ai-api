@@ -1,6 +1,5 @@
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, Integer, String, Date
 
 from .database import Base
 
@@ -12,3 +11,5 @@ class User(Base):
     name = Column(String, unique=True, index=True)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    token = Column(String, unique=True, index=True)
+    login_time = Column(Date)

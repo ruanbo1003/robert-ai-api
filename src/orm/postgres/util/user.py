@@ -1,4 +1,5 @@
 
+import datetime
 from sqlalchemy.orm import Session
 from api.user import schema as UserSchema
 from orm.postgres import models
@@ -12,6 +13,15 @@ class UserOrmUtil:
         db.commit()
         db.refresh(db_user)
         return db_user
+
+    @staticmethod
+    def update_token(db: Session, name: str, token: str):
+        db.query(models.User).filter(models.User.name == name).update({
+            "token": token,
+            "login_time": datetime.datetime.now()
+        })
+        db.commit()
+        db.flush()
 
     @staticmethod
     def get_user(db: Session, user_id: int):

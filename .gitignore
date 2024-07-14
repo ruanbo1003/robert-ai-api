@@ -2,3 +2,5 @@
 docs/setup-*
 docker/docker-compose-prod.yml
 
+**__pycache__**
+*.pyc

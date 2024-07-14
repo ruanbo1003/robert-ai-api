@@ -1,10 +1,12 @@
 
+import uuid
 from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
 
 from libs.encrypt import EncryptUtil
 from orm.postgres.database import get_db
 from orm.postgres.util.user import UserOrmUtil
+from libs.response import ApiResponse
 from .schema import UserSignup, UserExist, UserLogin
 
 
@@ -13,8 +15,12 @@ api_router = APIRouter()
 
 @api_router.post("/login")
 def signup(response: Response, login_user: UserLogin, db: Session = Depends(get_db)):
-    # auth_token = uuid.uuid4().hex
-    auth_token = "robert123"
+    user = UserOrmUtil.get_user_by_name(db, login_user.name)
+    if not user:
+        return ApiResponse(code=1001, message="username not exists.")
+
+    auth_token = uuid.uuid4().hex
+    UserOrmUtil.update_token(db, login_user.name, auth_token)
     response.set_cookie(key="authToken", value=auth_token, samesite='lax', secure=False, path='/', max_age=60*60*24*7,)
     return {
         'token': auth_token

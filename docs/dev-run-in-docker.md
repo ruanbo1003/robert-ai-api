@@ -13,13 +13,3 @@ docker compose -f docker/docker-compose.yml up postgres_dev ai_core_api_dev
 ```shell
 docker compose -f docker/docker-compose.yml up postgres_dev
 ```
-
-
-```text
-{
-    "code": 201,
-    "message": "invalid user",
-    "data": null
-}
-nextjs project use fetch() function to request data, and get this response from web server. How to add a middleware, so when the code is not 0, toast shows the message.
-```
