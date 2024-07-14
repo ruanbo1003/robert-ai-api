@@ -1,0 +1,40 @@
+
+version: '3.9'
+
+services:
+  postgres_dev:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=abc321
+      - POSTGRES_DB=robert_ai
+
+  ai_core_api_dev:
+    image: registry.cn-heyuan.aliyuncs.com/ruanbo/ai-core-api:v0
+    restart: always
+    command: ["fastapi", "dev", "--host", "0.0.0.0", "--port", "8000", "entry/main.py"]
+#    command: ["python", "entry/loop.py"]
+    depends_on:
+      - postgres_dev
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - POSTGRES_URL=postgresql://root:abc321@postgres_dev/robert_ai
+    volumes:
+      - ../src/:/app/src
+
+
+  ai_core_migrate:
+    image: registry.cn-heyuan.aliyuncs.com/ruanbo/ai-core-api:v0
+    restart: always
+    #    command: [ "alembic", "upgrade", "head"]
+    depends_on:
+      - postgres_dev
+    command: [ "python", "entry/loop.py" ]
+    environment:
+      - DEBUG=1
+      - POSTGRES_URL=postgresql://root:abc321@postgres_dev/robert_ai
