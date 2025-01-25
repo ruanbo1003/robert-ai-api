@@ -1,5 +1,8 @@
-fastapi
+fastapi[standard]
 sqlalchemy
 alembic
 psycopg2-binary
 passlib
+google-generativeai
+langchain_core
+langchain_openai

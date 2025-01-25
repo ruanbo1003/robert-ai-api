@@ -24,6 +24,9 @@ services:
     environment:
       - DEBUG=1
       - POSTGRES_URL=postgresql://root:abc321@postgres_dev/robert_ai
+      - GEMINI_API_KEY=gemini_api_key
+      - OPENAI_KEY=""
+      - DEEPSEEK_KEY=""
     volumes:
       - ../src/:/app/src
 
