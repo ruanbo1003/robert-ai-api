@@ -6,3 +6,6 @@ passlib
 google-generativeai
 langchain_core
 langchain_openai
+kokoro-tts
+kokoro>=0.9.4
+soundfile

@@ -1,3 +1,10 @@
 
 docs/setup-*
 docker/docker-compose-prod.yml
+**/*.pyc
+**/*.wav
+**/*.mp3
+**/*.bin
+**/*.DS_Store
+.idea
+**/*.onnx
